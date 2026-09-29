@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MAC Address Finder</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>MAC Address Finder</h1>
+
+        <p class="subtitle">
+            Network Interface Analyzer
+        </p>
+
+        <a href="/" class="scan-button">Scan Network Interfaces</a>
+
+        <div class="summary">
+
+            <div class="card">
+                <h3>Total Interfaces</h3>
+                <p>{{ total }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Active</h3>
+                <p>{{ active }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Inactive</h3>
+                <p>{{ inactive }}</p>
+            </div>
+
+        </div>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Interface</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>MAC Address</th>
+                        <th>IPv4 Address</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for network in networks %}
+
+                    <tr>
+                        <td>{{ network.interface }}</td>
+                        <td>{{ network.type }}</td>
+
+                        <td>
+                            {% if network.status == "Active" %}
+                                <span class="active">Active</span>
+                            {% else %}
+                                <span class="inactive">Inactive</span>
+                            {% endif %}
+                        </td>
+
+                        <td>{{ network.mac }}</td>
+
+                        <td>{{ network.ip }}</td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
